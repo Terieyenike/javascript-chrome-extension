@@ -1,4 +1,3 @@
-// chrome://extensions/
 let myLeads = [];
 const inputEl = document.getElementById('input-el');
 const inputBtn = document.getElementById('input-btn');
@@ -22,7 +21,7 @@ tabBtn.addEventListener('click', function () {
       render(myLeads);
     }
   });
-  text.textContent = ""
+  text.textContent = '';
 });
 
 function render(leads) {
@@ -59,9 +58,8 @@ inputBtn.addEventListener('click', function () {
   }
   const httpProtocol = 'https';
   if (inputEl.value.includes(httpProtocol)) {
-    myLeads.push(inputEl.value)
-  }
-  else {
+    myLeads.push(inputEl.value);
+  } else {
     myLeads.push(`${httpProtocol}://${inputEl.value}`);
   }
   inputEl.value = '';
