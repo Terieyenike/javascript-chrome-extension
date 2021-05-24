@@ -2,6 +2,7 @@
   "manifest_version": 3,
   "version": "1.0",
   "name": "Bookmark for Later",
+  "description": "Save and track leads or simply website you want to check later instead of having many tabs opened at the same time",
   "action": {
     "default_popup": "index.html",
     "default_icon": "icon.png"
