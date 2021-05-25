@@ -7,7 +7,6 @@ const deleteBtn = document.getElementById('delete-btn');
 const tabBtn = document.getElementById('tab-btn');
 const leadsFromLocalStorage = JSON.parse(localStorage.getItem('myLeads'));
 const text = document.getElementById('empty');
-
 if (leadsFromLocalStorage) {
   myLeads = leadsFromLocalStorage;
   render(myLeads);
@@ -45,6 +44,14 @@ function removeLeads() {
   render(myLeads);
 }
 
+// http protocol to add https if it exist in the input field
+const httpProtocol = 'https';
+function http() {
+  return inputEl.value.includes(httpProtocol)
+    ? myLeads.push(inputEl.value)
+    : myLeads.push(`${httpProtocol}://${inputEl.value}`);
+}
+
 deleteBtn.addEventListener('dblclick', removeLeads);
 
 inputBtn.addEventListener('click', function () {
@@ -52,16 +59,12 @@ inputBtn.addEventListener('click', function () {
     text.textContent = 'Please enter a valid url';
     text.style.color = 'red';
     text.style.fontWeight = 700;
+    text.style.textDecoration = 'none';
     return false;
   } else {
     text.textContent = '';
   }
-  const httpProtocol = 'https';
-  if (inputEl.value.includes(httpProtocol)) {
-    myLeads.push(inputEl.value);
-  } else {
-    myLeads.push(`${httpProtocol}://${inputEl.value}`);
-  }
+  http();
   inputEl.value = '';
   localStorage.setItem('myLeads', JSON.stringify(myLeads));
   render(myLeads);
