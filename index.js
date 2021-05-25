@@ -7,21 +7,6 @@ const deleteBtn = document.getElementById('delete-btn');
 const tabBtn = document.getElementById('tab-btn');
 const leadsFromLocalStorage = JSON.parse(localStorage.getItem('myLeads'));
 const text = document.getElementById('empty');
-if (leadsFromLocalStorage) {
-  myLeads = leadsFromLocalStorage;
-  render(myLeads);
-}
-
-tabBtn.addEventListener('click', function () {
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    for (let tab of tabs) {
-      myLeads.push(tab.url);
-      localStorage.setItem('myLeads', JSON.stringify(myLeads));
-      render(myLeads);
-    }
-  });
-  text.textContent = '';
-});
 
 function render(leads) {
   let listItems = '';
@@ -35,6 +20,11 @@ function render(leads) {
         `;
   }
   ulEl.innerHTML = listItems;
+}
+
+if (leadsFromLocalStorage) {
+  myLeads = leadsFromLocalStorage;
+  render(myLeads);
 }
 
 // clear localstorage, myLeads, and the DOM
@@ -68,4 +58,15 @@ inputBtn.addEventListener('click', function () {
   inputEl.value = '';
   localStorage.setItem('myLeads', JSON.stringify(myLeads));
   render(myLeads);
+});
+
+tabBtn.addEventListener('click', function () {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    for (let tab of tabs) {
+      myLeads.push(tab.url);
+      localStorage.setItem('myLeads', JSON.stringify(myLeads));
+      render(myLeads);
+    }
+  });
+  text.textContent = '';
 });
